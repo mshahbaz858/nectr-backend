@@ -1,5 +1,6 @@
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
+import {format, LoggingBindings, LoggingComponent} from '@loopback/logging';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
@@ -30,6 +31,32 @@ export class NectrApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
+    // this.configure(GraphQLBindings.GRAPHQL_SERVER).to({
+    //   asMiddlewareOnly: true,
+    // });
+
+    // this.component(GraphQLComponent);
+    // const server = this.getSync(GraphQLBindings.GRAPHQL_SERVER);
+    // this.expressMiddleware('middleware.express.GraphQL', server.expressApp);
+
+    // this.bind(GraphQLBindings.GRAPHQL_AUTH_CHECKER).to(
+    //   async (resolverData, roles) => {
+    //     const authService = await this.get<AuthService>('services.AuthService');
+    //     return authService.authenticate(resolverData, roles);
+    //   },
+    // );
+
+    this.configure(LoggingBindings.COMPONENT).to({
+      enableFluent: false, // default to true
+      enableHttpAccessLog: true, // default to true
+    });
+
+    this.configure(LoggingBindings.WINSTON_LOGGER).to({
+      level: 'info',
+      format: format.json(),
+      defaultMeta: {framework: 'LoopBack'},
+    })
+    this.component(LoggingComponent);
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
