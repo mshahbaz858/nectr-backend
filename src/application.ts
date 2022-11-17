@@ -1,5 +1,6 @@
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
+import {GraphQLBindings, GraphQLComponent} from '@loopback/graphql';
 import {format, LoggingBindings, LoggingComponent} from '@loopback/logging';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
@@ -10,6 +11,7 @@ import {
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import {AuthService} from './services';
 
 export {ApplicationConfig};
 
@@ -31,20 +33,19 @@ export class NectrApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
-    // this.configure(GraphQLBindings.GRAPHQL_SERVER).to({
-    //   asMiddlewareOnly: true,
-    // });
+    this.configure(GraphQLBindings.GRAPHQL_SERVER).to({
+      asMiddlewareOnly: true,
+    });
+    this.component(GraphQLComponent);
+    const server = this.getSync(GraphQLBindings.GRAPHQL_SERVER);
+    this.expressMiddleware('middleware.express.GraphQL', server.expressApp);
 
-    // this.component(GraphQLComponent);
-    // const server = this.getSync(GraphQLBindings.GRAPHQL_SERVER);
-    // this.expressMiddleware('middleware.express.GraphQL', server.expressApp);
-
-    // this.bind(GraphQLBindings.GRAPHQL_AUTH_CHECKER).to(
-    //   async (resolverData, roles) => {
-    //     const authService = await this.get<AuthService>('services.AuthService');
-    //     return authService.authenticate(resolverData, roles);
-    //   },
-    // );
+    this.bind(GraphQLBindings.GRAPHQL_AUTH_CHECKER).to(
+      async (resolverData, roles) => {
+        const authService = await this.get<AuthService>('services.AuthService');
+        return authService.authenticate(resolverData, roles);
+      },
+    );
 
     this.configure(LoggingBindings.COMPONENT).to({
       enableFluent: false, // default to true
@@ -57,6 +58,7 @@ export class NectrApplication extends BootMixin(
       defaultMeta: {framework: 'LoopBack'},
     })
     this.component(LoggingComponent);
+
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
@@ -64,6 +66,12 @@ export class NectrApplication extends BootMixin(
         // Customize ControllerBooter Conventions here
         dirs: ['controllers'],
         extensions: ['.controller.js'],
+        nested: true,
+      },
+      graphqlResolvers: {
+        // Customize ControllerBooter Conventions here
+        dirs: ['graphql-resolvers'],
+        extensions: ['.ts'],
         nested: true,
       },
     };

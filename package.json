@@ -58,7 +58,9 @@
     "@loopback/rest-explorer": "^5.0.3",
     "@loopback/security": "^0.8.4",
     "@loopback/service-proxy": "^5.0.3",
+    "jsonwebtoken": "^8.5.1",
     "loopback-connector-postgresql": "^5.5.2",
+    "nodemailer": "^6.8.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
