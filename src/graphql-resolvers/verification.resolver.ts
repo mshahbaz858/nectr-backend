@@ -28,4 +28,26 @@ export class VerificationResolver {
     );
   }
 
+  @mutation(returns => Verification)
+  async verify(
+    @arg("token", type => String) token: string,
+    @arg("code", type => String) code: string
+  ): Promise<Verification> {
+    return this.verificationController.verify(
+      this.resolverData.context,
+      token,
+      code
+    )
+  }
+
+  @mutation(returns => Verification)
+  async sendResetVerificationCode(
+    @arg("email") email: string
+  ): Promise<Verification> {
+    return this.verificationController.sendResetVerificationCode(
+      this.resolverData.context,
+      email
+    );
+  }
+
 }
