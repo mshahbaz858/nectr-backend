@@ -7,7 +7,6 @@ export class Business extends Entity {
   @property({
     type: 'string',
     id: true,
-    generated: true,
     defaultFn: 'uuid'
   })
   id: string;
@@ -56,24 +55,107 @@ export class Business extends Entity {
 
   @property({
     type: 'geopoint',
+    required: true,
   })
-  location?: GeoCoordinate;
+  location: GeoCoordinate;
 
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      type: 'object',
+      patternProperties: {
+        "MONDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        },
+        "TUESDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        },
+        "WEDNESDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        },
+        "THURSDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        },
+        "FRIDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        },
+        "SATURDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        },
+        "SUNDAY": {
+          type: 'object',
+          patternProperties: {
+            "startTime": {
+              type: 'number',
+            },
+            "endTime": {
+              type: 'number',
+            },
+          }
+        }
+      },
+      required: []
+    }
   })
   schedule: string;
 
   @property({
     type: 'array',
     itemType: 'string',
-    required: true,
   })
-  images: string[];
+  images?: string[];
 
   @belongsTo(() => User)
-  userId: number;
+  userId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

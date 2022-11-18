@@ -48,7 +48,7 @@ export class User extends Entity {
     required: true,
     default: () => new Date(),
   })
-  updatedAt?: Date;
+  updatedAt: Date;
   // Define well-known properties here
 
   // Indexer property to allow additional data
