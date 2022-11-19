@@ -1,7 +1,7 @@
 import {inject} from '@loopback/core';
 import {arg, GraphQLBindings, mutation, resolver, ResolverData} from '@loopback/graphql';
 import {UserController} from '../controllers';
-import {AuthenticatedUser, BusinessInput, UserInput} from '../schema';
+import {AuthenticatedUser, BusinessInput, Success, UserInput} from '../schema';
 
 @resolver()
 export class UserResolver {
@@ -24,6 +24,18 @@ export class UserResolver {
       token,
       userDetails,
       businessDetails,
+    );
+  }
+
+  @mutation(returns => Success)
+  async resetPassword(
+    @arg("token") token: string,
+    @arg("newPassword") newPassword: string,
+  ): Promise<Success> {
+    return this.userController.resetPassword(
+      this.resolverData.context,
+      token,
+      newPassword
     );
   }
 

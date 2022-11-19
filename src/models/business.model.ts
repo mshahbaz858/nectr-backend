@@ -1,5 +1,6 @@
-import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {belongsTo, Entity, hasMany, model, property} from '@loopback/repository';
 import {GeoCoordinate} from '../schema';
+import {Catagory} from './catagory.model';
 import {User} from './user.model';
 
 @model({settings: {strict: true}})
@@ -156,7 +157,9 @@ export class Business extends Entity {
 
   @belongsTo(() => User)
   userId: string;
-  // Define well-known properties here
+
+  @hasMany(() => Catagory)
+  catagories: Catagory[];
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

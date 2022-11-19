@@ -62,6 +62,8 @@ export class VerificationController {
       if (verification.status !== VERIFICATION_STATUS.CODE_SENT) throw new HttpErrors.Forbidden("Verification request time out, please create initiate a new request");
       if (verification.code !== code) throw new HttpErrors.Forbidden("Invalid verification code");
 
+      console.log("code", code);
+
       const encodeVerificatioTokenInput = {
         code,
         status: VERIFICATION_STATUS.VERIFIED,
@@ -89,6 +91,7 @@ export class VerificationController {
         status: VERIFICATION_STATUS.CODE_SENT,
         email
       }
+      console.log("code", code);
       const token = await this.jwtService.generateUserVerificationToken(resetPasswordInput);
       return {token: token};
     } catch (error) {
