@@ -3,6 +3,8 @@ import {GeoCoordinate} from '../schema';
 import {Catagory} from './catagory.model';
 import {User} from './user.model';
 import {BusinessCatagory} from './business-catagory.model';
+import {SubCatagory} from './sub-catagory.model';
+import {BusinessSubCatagory} from './business-sub-catagory.model';
 
 @model({settings: {strict: true}})
 export class Business extends Entity {
@@ -164,6 +166,9 @@ export class Business extends Entity {
 
   @hasMany(() => Catagory, {through: {model: () => BusinessCatagory, keyFrom: '_businessId', keyTo: '_catagoryId'}})
   _catagories: Catagory[];
+
+  @hasMany(() => SubCatagory, {through: {model: () => BusinessSubCatagory, keyFrom: '_businessId', keyTo: '_subCatagoryId'}})
+  _subCatagories: SubCatagory[];
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;

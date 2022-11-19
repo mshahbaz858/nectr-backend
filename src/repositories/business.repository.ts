@@ -1,7 +1,7 @@
 import {Getter, inject} from '@loopback/core';
 import {BelongsToAccessor, DefaultCrudRepository, HasManyRepositoryFactory, repository, HasManyThroughRepositoryFactory} from '@loopback/repository';
 import {PostgresDataSource} from '../datasources';
-import {Business, BusinessRelations, Catagory, User, BusinessCatagory} from '../models';
+import {Business, BusinessRelations, Catagory, User, BusinessCatagory, SubCatagory, BusinessSubCatagory} from '../models';
 import {BusinessCatagoryRepository} from './business-catagory.repository';
 import {BusinessSubCatagoryRepository} from './business-sub-catagory.repository';
 import {CatagoryRepository} from './catagory.repository';
@@ -24,10 +24,17 @@ export class BusinessRepository extends DefaultCrudRepository<
           typeof Business.prototype.id
         >;
 
+  public readonly _subCatagories: HasManyThroughRepositoryFactory<SubCatagory, typeof SubCatagory.prototype.id,
+          BusinessSubCatagory,
+          typeof Business.prototype.id
+        >;
+
   constructor(
     @inject('datasources.postgres') dataSource: PostgresDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('ServiceRepository') protected serviceRepositoryGetter: Getter<ServiceRepository>, @repository.getter('CatagoryRepository') protected catagoryRepositoryGetter: Getter<CatagoryRepository>, @repository.getter('BusinessCatagoryRepository') protected businessCatagoryRepositoryGetter: Getter<BusinessCatagoryRepository>, @repository.getter('BusinessSubCatagoryRepository') protected businessSubCatagoryRepositoryGetter: Getter<BusinessSubCatagoryRepository>, @repository.getter('SubCatagoryRepository') protected subCatagoryRepositoryGetter: Getter<SubCatagoryRepository>,
   ) {
     super(Business, dataSource);
+    this._subCatagories = this.createHasManyThroughRepositoryFactoryFor('_subCatagories', subCatagoryRepositoryGetter, businessSubCatagoryRepositoryGetter,);
+    this.registerInclusionResolver('_subCatagories', this._subCatagories.inclusionResolver);
     this._catagories = this.createHasManyThroughRepositoryFactoryFor('_catagories', catagoryRepositoryGetter, businessCatagoryRepositoryGetter,);
     this.registerInclusionResolver('_catagories', this._catagories.inclusionResolver);
     this.catagories = this.createHasManyRepositoryFactoryFor('catagories', catagoryRepositoryGetter,);

@@ -19,6 +19,15 @@ export class BusinessSubCatagory extends Entity {
   })
   subCatagoryId?: number;
 
+  @property({
+    type: 'string',
+  })
+  _businessId?: string;
+
+  @property({
+    type: 'number',
+  })
+  _subCatagoryId?: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
