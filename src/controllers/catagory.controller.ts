@@ -68,9 +68,6 @@ export class CatagoryController {
         }
         catagoryList.push({id: newCatagory.id, name: newCatagory.name, subCatagories: subCatagoryList})
       }
-      // console.log("catagoryList [0] ===>>>>>", catagoryList[0].subCatagories);
-      // console.log("---------------------------------------------------------------------------");
-      // console.log("catagoryList [1] ====>>>>>", catagoryList[1].subCatagories[1].services);
       await transaction.commit()
       return catagoryList
     } catch (error: any) {

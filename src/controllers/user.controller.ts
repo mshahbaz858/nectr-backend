@@ -71,12 +71,10 @@ export class UserController {
         lastName,
         {transaction}
       )
-      console.log("newUser --->>>>", newUser);
 
       let newBusiness = await this.businessRepo.create({...businessDetails, userId: newUser.id},
         {transaction}
       )
-      console.log("newBusinessEntry --->>>>", newBusiness);
 
       // const catagoryList = await this.createService(services, newBusiness.id, {transaction})
       // console.log("catagoryList", catagoryList);

@@ -56,14 +56,9 @@ export class MailService {
 
   async sendVerificationCode(to: string, code: string) {
     try {
-      console.log("to", to);
-      console.log("code", code);
-
       const subject = `${this.project} Verification`
       const message = `${code} is your verification code for ${this.project}. If you didn't request this, you can safely ignore this email`
       const result = await this.sendPlain(to, subject, message);
-      console.log("result", result);
-
     } catch (error) {
       this.logger.error("SendVerificationCodeError", error);
     }
