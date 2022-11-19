@@ -12,12 +12,12 @@ export class BusinessCatagory extends Entity {
   @property({
     type: 'string',
   })
-  businessId?: string;
+  _businessId?: string;
 
   @property({
     type: 'number',
   })
-  catagoryId?: number;
+  _catagoryId?: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

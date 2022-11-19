@@ -2,6 +2,7 @@ import {belongsTo, Entity, hasMany, model, property} from '@loopback/repository'
 import {GeoCoordinate} from '../schema';
 import {Catagory} from './catagory.model';
 import {User} from './user.model';
+import {BusinessCatagory} from './business-catagory.model';
 
 @model({settings: {strict: true}})
 export class Business extends Entity {
@@ -161,6 +162,8 @@ export class Business extends Entity {
   @hasMany(() => Catagory)
   catagories: Catagory[];
 
+  @hasMany(() => Catagory, {through: {model: () => BusinessCatagory, keyFrom: '_businessId', keyTo: '_catagoryId'}})
+  _catagories: Catagory[];
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
