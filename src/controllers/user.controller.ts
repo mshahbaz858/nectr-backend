@@ -107,6 +107,37 @@ export class UserController {
 
   }
 
+  async consumerSignup(context: any, token: string, userDetails: UserInput): Promise<User> {
+    try {
+      const {code, status, email} = await this.jwtService.verifyUserVerificationToken(token)
+      if (status !== VERIFICATION_STATUS.VERIFIED) throw new HttpErrors.Forbidden("Email not verified, please verfiy your email");
+      // check if already user exist
+      const existingUser = await this.userRepo.findOne({where: {email: email.toLowerCase()}});
+      if (existingUser) throw new HttpErrors.Conflict("User Already Exist");
+
+      const {firstName, lastName, password} = userDetails
+      let newUser = await this.createUser(
+        email,
+        password,
+        firstName,
+        lastName,
+      )
+      const _user: User = {
+        id: newUser.id,
+        email: newUser.email,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        createdAt: newUser.createdAt,
+        updatedAt: newUser.updatedAt,
+      }
+      console.log("newUser --->>>>", newUser);
+      return _user;
+    } catch (error) {
+      this.logger.error("ConsumerSignupError", error)
+      throw error
+    }
+  }
+
   async resetPassword(context: any, token: string, newPassword: string): Promise<Success> {
     const transaction = await this.userRepo.dataSource.beginTransaction(IsolationLevel.READ_COMMITTED);
     try {
@@ -116,7 +147,7 @@ export class UserController {
         email: string;
       } = await this.jwtService.verifyUserVerificationToken(token);
       if (verification.status !== VERIFICATION_STATUS.VERIFIED) throw new HttpErrors.Forbidden("Email not verified, please verfiy your email");
-      const user = await this.userRepo.findOne({where: {email: {eq: verification.email}}});
+      const user = await this.userRepo.findOne({where: {email: {eq: verification.email.toLowerCase()}}});
       if (!user) throw new HttpErrors.Forbidden("Email not found.");
       const pwdHash = await this.hasherService.hashPassword(newPassword);
       await this.userRepo.updateById(user?.id, {password: pwdHash}, {transaction});
@@ -130,7 +161,7 @@ export class UserController {
   }
 
   // MODAL HELPER FUNCTION
-  async createUser(email: string, password: string, firstName: string, lastName: string, options: {}): Promise<User> {
+  async createUser(email: string, password: string, firstName: string, lastName: string, options?: {}): Promise<User> {
     const hashedPassword = await this.hasherService.hashPassword(password);
     return this.userRepo.create({
       email: email.toLowerCase(),

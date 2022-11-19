@@ -1,7 +1,7 @@
 import {inject} from '@loopback/core';
 import {arg, GraphQLBindings, mutation, resolver, ResolverData} from '@loopback/graphql';
 import {UserController} from '../controllers';
-import {AuthenticatedUser, BusinessInput, Success, UserInput} from '../schema';
+import {AuthenticatedUser, BusinessInput, Success, User, UserInput} from '../schema';
 
 @resolver()
 export class UserResolver {
@@ -25,6 +25,18 @@ export class UserResolver {
       userDetails,
       businessDetails,
     );
+  }
+
+  @mutation(returns => User)
+  async consumerSignup(
+    @arg("token") token: string,
+    @arg("userDetails", type => UserInput) userDetails: UserInput
+  ): Promise<User> {
+    return this.userController.consumerSignup(
+      this.resolverData.context,
+      token,
+      userDetails
+    )
   }
 
   @mutation(returns => Success)
