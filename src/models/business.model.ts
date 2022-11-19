@@ -5,6 +5,8 @@ import {User} from './user.model';
 import {BusinessCatagory} from './business-catagory.model';
 import {SubCatagory} from './sub-catagory.model';
 import {BusinessSubCatagory} from './business-sub-catagory.model';
+import {Service} from './service.model';
+import {BusinessService} from './business-service.model';
 
 @model({settings: {strict: true}})
 export class Business extends Entity {
@@ -169,6 +171,9 @@ export class Business extends Entity {
 
   @hasMany(() => SubCatagory, {through: {model: () => BusinessSubCatagory, keyFrom: '_businessId', keyTo: '_subCatagoryId'}})
   _subCatagories: SubCatagory[];
+
+  @hasMany(() => Service, {through: {model: () => BusinessService, keyFrom: '_businessId', keyTo: '_serviceId'}})
+  _service: Service[];
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
