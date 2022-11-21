@@ -1,8 +1,10 @@
-import {Entity, hasMany, model, property} from '@loopback/repository';
-import {SubService} from './sub-service.model';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {Business} from './business.model';
+import {Service} from './service.model';
 
 @model({settings: {strict: true}})
-export class Service extends Entity {
+export class ServiceOffering extends Entity {
+  // Define well-known properties here
   @property({
     type: 'number',
     id: true,
@@ -21,33 +23,29 @@ export class Service extends Entity {
   })
   price?: number;
 
-  @property({
-    type: 'number',
-  })
-  subCatagoryId?: number;
+  @belongsTo(() => Service)
+  serviceId: number;
 
-  @hasMany(() => SubService)
-  subServices: SubService[];
+  @belongsTo(() => Business)
+  businessId: string;
 
   @property({
     type: 'boolean',
     required: true,
-    default: false,
+    default: true,
   })
   isCustomize: boolean;
-  // Define well-known properties here
-
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Service>) {
+  constructor(data?: Partial<ServiceOffering>) {
     super(data);
   }
 }
 
-export interface ServiceRelations {
+export interface ServiceOfferingRelations {
   // describe navigational properties here
 }
 
-export type ServiceWithRelations = Service & ServiceRelations;
+export type ServiceOfferingWithRelations = ServiceOffering & ServiceOfferingRelations;
