@@ -1,12 +1,12 @@
 import {belongsTo, Entity, hasMany, model, property} from '@loopback/repository';
 import {GeoCoordinate} from '../schema';
-import {Catagory} from './catagory.model';
-import {User} from './user.model';
 import {BusinessCatagory} from './business-catagory.model';
-import {SubCatagory} from './sub-catagory.model';
-import {BusinessSubCatagory} from './business-sub-catagory.model';
-import {Service} from './service.model';
 import {BusinessService} from './business-service.model';
+import {BusinessSubCatagory} from './business-sub-catagory.model';
+import {Catagory} from './catagory.model';
+import {Service} from './service.model';
+import {SubCatagory} from './sub-catagory.model';
+import {User} from './user.model';
 
 @model({settings: {strict: true}})
 export class Business extends Entity {
@@ -162,9 +162,6 @@ export class Business extends Entity {
 
   @belongsTo(() => User)
   userId: string;
-
-  @hasMany(() => Catagory)
-  catagories: Catagory[];
 
   @hasMany(() => Catagory, {through: {model: () => BusinessCatagory, keyFrom: '_businessId', keyTo: '_catagoryId'}})
   _catagories: Catagory[];

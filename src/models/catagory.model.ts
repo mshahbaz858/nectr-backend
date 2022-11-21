@@ -16,11 +16,6 @@ export class Catagory extends Entity {
   })
   name: string;
 
-  @property({
-    type: 'string',
-  })
-  businessId?: string;
-
   @hasMany(() => SubCatagory)
   subCatagories: SubCatagory[];
   // Define well-known properties here
