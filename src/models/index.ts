@@ -8,3 +8,4 @@ export * from './business-catagory.model';
 export * from './business-sub-catagory.model';
 export * from './business-service.model';
 export * from './service-offering.model';
+export * from './role.model';

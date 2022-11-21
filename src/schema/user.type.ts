@@ -1,5 +1,6 @@
 import {field, ID, objectType} from '@loopback/graphql';
 import {property} from '@loopback/repository';
+import {USER_ROLE} from '.';
 
 @objectType({description: 'GeoCoordinate object'})
 export class GeoCoordinate {
@@ -34,6 +35,11 @@ export class User {
   @field({nullable: false})
   @property()
   updatedAt: Date;
+
+  @field({nullable: false})
+  @property()
+  roleId: USER_ROLE;
+
 }
 
 @objectType({description: 'Business object'})

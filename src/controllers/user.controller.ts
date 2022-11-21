@@ -5,7 +5,7 @@ import {LoggingBindings, WinstonLogger} from '@loopback/logging';
 import {IsolationLevel, repository} from '@loopback/repository';
 import {HttpErrors} from '@loopback/rest';
 import {BusinessCatagoryRepository, BusinessRepository, CatagoryRepository, ServiceRepository, SubCatagoryRepository, SubServiceRepository, UserRepository} from '../repositories';
-import {AuthenticatedUser, BusinessInput, Success, User, UserInput, VERIFICATION_STATUS} from '../schema';
+import {AuthenticatedUser, BusinessInput, Success, User, UserInput, USER_ROLE, VERIFICATION_STATUS} from '../schema';
 import {HasherService, JwtService, MyUserService} from '../services';
 
 // import {inject} from '@loopback/core';
@@ -69,6 +69,7 @@ export class UserController {
         password,
         firstName,
         lastName,
+        USER_ROLE.BUSINESS,
         {transaction}
       )
 
@@ -86,6 +87,7 @@ export class UserController {
         lastName: newUser.lastName,
         createdAt: newUser.createdAt,
         updatedAt: newUser.updatedAt,
+        roleId: newUser.roleId
       }
 
       const securityProfile = this.userService.convertToUserProfile(newUser);
@@ -119,6 +121,7 @@ export class UserController {
         password,
         firstName,
         lastName,
+        USER_ROLE.CONSUMER
       )
       const _user: User = {
         id: newUser.id,
@@ -127,6 +130,7 @@ export class UserController {
         lastName: newUser.lastName,
         createdAt: newUser.createdAt,
         updatedAt: newUser.updatedAt,
+        roleId: newUser.roleId,
       }
       console.log("newUser --->>>>", newUser);
       return _user;
@@ -159,13 +163,14 @@ export class UserController {
   }
 
   // MODAL HELPER FUNCTION
-  async createUser(email: string, password: string, firstName: string, lastName: string, options?: {}): Promise<User> {
+  async createUser(email: string, password: string, firstName: string, lastName: string, roleId: USER_ROLE, options?: {}): Promise<User> {
     const hashedPassword = await this.hasherService.hashPassword(password);
     return this.userRepo.create({
       email: email.toLowerCase(),
       password: hashedPassword,
       firstName,
-      lastName
+      lastName,
+      roleId: roleId
     },
       options
     );

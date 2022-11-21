@@ -7,6 +7,12 @@ export enum VERIFICATION_STATUS {
   USED = 'USED'
 }
 
+export enum USER_ROLE {
+  ADMIN = 'ADMIN',
+  BUSINESS = 'BUSINESS',
+  CONSUMER = 'CONSUMER'
+}
+
 registerEnumType(VERIFICATION_STATUS, {
   name: "VERIFICATION_STATUS"
 });

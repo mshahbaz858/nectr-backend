@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Role} from './role.model';
 
 @model({settings: {strict: true}})
 export class User extends Entity {
@@ -49,6 +50,9 @@ export class User extends Entity {
     default: () => new Date(),
   })
   updatedAt: Date;
+
+  @belongsTo(() => Role)
+  roleId: import("/Users/mac/Desktop/doerz/Nectr/backend/src/schema/enums.type").USER_ROLE;
   // Define well-known properties here
 
   // Indexer property to allow additional data

@@ -8,3 +8,4 @@ export * from './business-catagory.repository';
 export * from './business-service.repository';
 export * from './business-sub-catagory.repository';
 export * from './service-offering.repository';
+export * from './role.repository';

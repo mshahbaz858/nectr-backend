@@ -37,6 +37,8 @@ export class VerificationController {
     try {
       const code = await this.utilService.generateRandomNumber(6)
       this.mailService.sendVerificationCode(email, code)
+      console.log("code", code);
+
       const encodeVerficationTokenInput = {
         code,
         status: VERIFICATION_STATUS.CODE_SENT,
@@ -85,6 +87,7 @@ export class VerificationController {
       const existingUser = await this.userRepo.findOne({where: {email}});
       if (!existingUser) throw new HttpErrors.NotFound("User not found for given email");
       const code = await this.utilService.generateRandomNumber(6);
+      console.log("code", code);
       this.mailService.sendPasswordResetEmail(email, code);
       const resetPasswordInput = {
         code,
