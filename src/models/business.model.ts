@@ -163,14 +163,14 @@ export class Business extends Entity {
   @belongsTo(() => User)
   userId: string;
 
-  @hasMany(() => Catagory, {through: {model: () => BusinessCatagory, keyFrom: '_businessId', keyTo: '_catagoryId'}})
-  _catagories: Catagory[];
+  @hasMany(() => Catagory, {through: {model: () => BusinessCatagory, keyFrom: 'businessId', keyTo: 'catagoryId'}})
+  catagories: Catagory[];
 
-  @hasMany(() => SubCatagory, {through: {model: () => BusinessSubCatagory, keyFrom: '_businessId', keyTo: '_subCatagoryId'}})
-  _subCatagories: SubCatagory[];
+  @hasMany(() => SubCatagory, {through: {model: () => BusinessSubCatagory, keyFrom: 'businessId', keyTo: 'subCatagoryId'}})
+  subCatagories: SubCatagory[];
 
-  @hasMany(() => Service, {through: {model: () => BusinessService, keyFrom: '_businessId', keyTo: '_serviceId'}})
-  _service: Service[];
+  @hasMany(() => Service, {through: {model: () => BusinessService, keyFrom: 'businessId', keyTo: 'serviceId'}})
+  services: Service[];
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;

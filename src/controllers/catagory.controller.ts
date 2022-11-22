@@ -3,8 +3,9 @@
 import {inject} from '@loopback/core';
 import {LoggingBindings, WinstonLogger} from '@loopback/logging';
 import {IsolationLevel, repository} from '@loopback/repository';
+import {HttpErrors} from '@loopback/rest';
 import {CatagoryRepository, ServiceRepository, SubCatagoryRepository, SubServiceRepository} from '../repositories';
-import {ServiceList, ServiceListInput} from '../schema';
+import {ServiceList, ServiceListInput, Services, ServicesInput, Success} from '../schema';
 
 // import {inject} from '@loopback/core';
 
@@ -91,17 +92,20 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Mens haircut',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 2,
                 name: 'Ladies haircut',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Children haircut',
                 price: 15.00,
+                isCustomize: false,
               }
             ]
           },
@@ -112,17 +116,20 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Hair Bleaching',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 2,
                 name: 'Hair Dyeing',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Hair highlight',
                 price: 15.00,
+                isCustomize: false,
               }
             ]
           },
@@ -139,32 +146,38 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Sew-In',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 2,
                 name: 'Quick blue weave',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Frontal installation',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 4,
                 name: 'Closure installation',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 5,
                 name: 'Wig making',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 6,
                 name: 'Natural hair',
                 price: 15.00,
+                isCustomize: false,
               },
             ]
           },
@@ -175,32 +188,38 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Box braids',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 2,
                 name: 'Classic braids',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Knotless braids',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 4,
                 name: 'Micro braids',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 5,
                 name: 'Crochet braids',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 6,
                 name: 'Cornrows',
                 price: 15.00,
+                isCustomize: false,
               },
             ]
           },
@@ -211,22 +230,26 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Interlocking',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 2,
                 name: 'Loc retwist',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Starter locs',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 4,
                 name: 'Faux locs',
                 price: 15.00,
+                isCustomize: false,
               },
             ]
           },
@@ -237,12 +260,14 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Braid wigs',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 21,
                 name: 'Human hair wigs',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
             ]
           },
@@ -253,7 +278,8 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Natural hair grooming',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
             ]
           },
@@ -270,6 +296,7 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Nails',
+                isCustomize: false,
                 subServices: [
                   {
                     id: 1,
@@ -286,6 +313,7 @@ export class CatagoryController {
               {
                 id: 2,
                 name: 'Eyebrows / Lashes',
+                isCustomize: false,
                 subServices: [
                   {
                     id: 1,
@@ -313,10 +341,12 @@ export class CatagoryController {
                 id: 3,
                 name: 'Facials',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 4,
                 name: 'Waxing',
+                isCustomize: false,
                 subServices: [
                   {
                     id: 1,
@@ -333,6 +363,7 @@ export class CatagoryController {
               {
                 id: 5,
                 name: 'Massage',
+                isCustomize: false,
                 subServices: [
                   {
                     id: 1,
@@ -359,6 +390,7 @@ export class CatagoryController {
               {
                 id: 6,
                 name: 'Body work',
+                isCustomize: false,
                 subServices: [
                   {
                     id: 1,
@@ -397,27 +429,32 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Ear piercing',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 2,
                 name: 'Facial piercing',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Genital piercing',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 4,
                 name: 'Lip piercing',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 5,
                 name: 'Nipple piercing',
                 price: 15.00,
+                isCustomize: false,
               },
             ]
           },
@@ -428,33 +465,72 @@ export class CatagoryController {
               {
                 id: 1,
                 name: 'Traditional tattoo style',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 2,
                 name: 'Neo-traditional tattoo style',
-                price: 15.00
+                price: 15.00,
+                isCustomize: false
               },
               {
                 id: 3,
                 name: 'Fine line tattoo style',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 4,
                 name: 'Realism tattoo style',
                 price: 15.00,
+                isCustomize: false,
               },
               {
                 id: 5,
                 name: 'Geometric tattoo style',
                 price: 15.00,
+                isCustomize: false,
               },
             ]
           },
         ]
       },
     ]
+
+  }
+
+  async addServiceCatagory(context: any, service: ServicesInput, subCatagoryId: number): Promise<Services> {
+    try {
+      const newService = await this.serviceRepo.create({name: service.name, price: service.price, isCustomize: true, subCatagoryId: subCatagoryId});
+      if (!newService.id) throw new HttpErrors.Forbidden("Something went wrong, NewService not created.");
+      return {
+        id: newService.id,
+        name: newService.name,
+        price: newService.price,
+        isCustomize: newService.isCustomize,
+      }
+    } catch (error) {
+      this.logger.error("AddServiceCatagory", error);
+      throw error
+    }
+
+  }
+
+  async removeServiceCatagory(context: any, serviceId: number): Promise<Success> {
+    try {
+      const service = await this.serviceRepo.findById(serviceId);
+      if (service.isCustomize) {
+        await this.serviceRepo.deleteById(serviceId);
+      }
+      else {
+        throw new HttpErrors.BadRequest("You cannot delete standard services")
+      }
+      return {success: true}
+    } catch (error) {
+      this.logger.error("RemoveServiceCatagory", error);
+      throw error
+    }
 
   }
 }

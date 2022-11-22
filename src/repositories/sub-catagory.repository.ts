@@ -1,7 +1,7 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, HasManyRepositoryFactory} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {DefaultCrudRepository, HasManyRepositoryFactory, repository} from '@loopback/repository';
 import {PostgresDataSource} from '../datasources';
-import {SubCatagory, SubCatagoryRelations, Service} from '../models';
+import {Service, SubCatagory, SubCatagoryRelations} from '../models';
 import {ServiceRepository} from './service.repository';
 
 export class SubCatagoryRepository extends DefaultCrudRepository<

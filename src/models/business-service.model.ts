@@ -18,16 +18,6 @@ export class BusinessService extends Entity {
     type: 'number',
   })
   serviceId?: number;
-
-  @property({
-    type: 'string',
-  })
-  _businessId?: string;
-
-  @property({
-    type: 'number',
-  })
-  _serviceId?: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

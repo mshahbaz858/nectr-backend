@@ -18,17 +18,17 @@ export class BusinessRepository extends DefaultCrudRepository<
 
   public readonly user: BelongsToAccessor<User, typeof Business.prototype.id>;
 
-  public readonly _catagories: HasManyThroughRepositoryFactory<Catagory, typeof Catagory.prototype.id,
+  public readonly catagories: HasManyThroughRepositoryFactory<Catagory, typeof Catagory.prototype.id,
     BusinessCatagory,
     typeof Business.prototype.id
   >;
 
-  public readonly _subCatagories: HasManyThroughRepositoryFactory<SubCatagory, typeof SubCatagory.prototype.id,
+  public readonly subCatagories: HasManyThroughRepositoryFactory<SubCatagory, typeof SubCatagory.prototype.id,
     BusinessSubCatagory,
     typeof Business.prototype.id
   >;
 
-  public readonly _service: HasManyThroughRepositoryFactory<Service, typeof Service.prototype.id,
+  public readonly services: HasManyThroughRepositoryFactory<Service, typeof Service.prototype.id,
     BusinessService,
     typeof Business.prototype.id
   >;
@@ -37,12 +37,12 @@ export class BusinessRepository extends DefaultCrudRepository<
     @inject('datasources.postgres') dataSource: PostgresDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('ServiceRepository') protected serviceRepositoryGetter: Getter<ServiceRepository>, @repository.getter('CatagoryRepository') protected catagoryRepositoryGetter: Getter<CatagoryRepository>, @repository.getter('BusinessCatagoryRepository') protected businessCatagoryRepositoryGetter: Getter<BusinessCatagoryRepository>, @repository.getter('BusinessSubCatagoryRepository') protected businessSubCatagoryRepositoryGetter: Getter<BusinessSubCatagoryRepository>, @repository.getter('SubCatagoryRepository') protected subCatagoryRepositoryGetter: Getter<SubCatagoryRepository>, @repository.getter('BusinessServiceRepository') protected businessServiceRepositoryGetter: Getter<BusinessServiceRepository>,
   ) {
     super(Business, dataSource);
-    this._service = this.createHasManyThroughRepositoryFactoryFor('_service', serviceRepositoryGetter, businessServiceRepositoryGetter,);
-    this.registerInclusionResolver('_service', this._service.inclusionResolver);
-    this._subCatagories = this.createHasManyThroughRepositoryFactoryFor('_subCatagories', subCatagoryRepositoryGetter, businessSubCatagoryRepositoryGetter,);
-    this.registerInclusionResolver('_subCatagories', this._subCatagories.inclusionResolver);
-    this._catagories = this.createHasManyThroughRepositoryFactoryFor('_catagories', catagoryRepositoryGetter, businessCatagoryRepositoryGetter,);
-    this.registerInclusionResolver('_catagories', this._catagories.inclusionResolver);
+    this.services = this.createHasManyThroughRepositoryFactoryFor('services', serviceRepositoryGetter, businessServiceRepositoryGetter,);
+    this.registerInclusionResolver('services', this.services.inclusionResolver);
+    this.subCatagories = this.createHasManyThroughRepositoryFactoryFor('subCatagories', subCatagoryRepositoryGetter, businessSubCatagoryRepositoryGetter,);
+    this.registerInclusionResolver('subCatagories', this.subCatagories.inclusionResolver);
+    this.catagories = this.createHasManyThroughRepositoryFactoryFor('catagories', catagoryRepositoryGetter, businessCatagoryRepositoryGetter,);
+    this.registerInclusionResolver('catagories', this.catagories.inclusionResolver);
     this.user = this.createBelongsToAccessorFor('user', userRepositoryGetter,);
     this.registerInclusionResolver('user', this.user.inclusionResolver);
   }

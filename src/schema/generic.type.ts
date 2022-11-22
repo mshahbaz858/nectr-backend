@@ -3,9 +3,9 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import { field, objectType } from '@loopback/graphql';
+import {field, inputType, objectType} from '@loopback/graphql';
 
-@objectType({ description: 'Generic success response' })
+@objectType({description: 'Generic success response'})
 export class Success {
 
   @field({
@@ -16,7 +16,7 @@ export class Success {
 }
 
 
-@objectType({ description: 'Generic success response' })
+@objectType({description: 'Generic success response'})
 export class VerificationStatus {
 
   @field({
@@ -38,7 +38,7 @@ export class VerificationStatus {
   message?: string;
 }
 
-@objectType({ description: 'Pagination info' })
+@objectType({description: 'Pagination info'})
 export class Pagination {
 
   @field({
@@ -59,3 +59,64 @@ export class Pagination {
   })
   count: number;
 }
+
+// @objectType({ description: 'Generic success response' })
+// export class ServiceOffering {
+
+//   @field({
+//     nullable: false,
+//     description: 'True if successfully verified',
+//   })
+//   verified: boolean;
+
+//   @field({
+//     nullable: false,
+//     description: 'Current verification state',
+//   })
+//   status: string;
+
+//   @field({
+//     nullable: true,
+//     description: '',
+//   })
+//   message?: string;
+// }
+
+@inputType({description: "Service Offers"})
+export class ServiceOfferingInput {
+  @field(type => String, {nullable: false})
+  name: string
+
+  @field({nullable: false})
+  price: number
+
+  @field({nullable: false})
+  serviceId: number
+
+  @field(type => String, {nullable: false})
+  businessId: string
+
+  @field({nullable: false})
+  isCustomize: boolean
+}
+
+@inputType({description: "Business Catagory"})
+export class BusinessCatagory {
+  @field(type => String, {nullable: false})
+  businessId: string
+
+  @field({nullable: false})
+  catagoryId: number
+}
+
+
+@inputType({description: "Business SubCatagory"})
+export class BusinessSubCatagory {
+  @field(type => String, {nullable: false})
+  businessId: string
+
+  @field({nullable: false})
+  subCatagoryId: number
+}
+
+

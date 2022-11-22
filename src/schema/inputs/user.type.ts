@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {field, inputType} from '@loopback/graphql';
-import {ServiceListInput} from './service.type';
+import {Services_Input} from './service.type';
 
 @inputType()
 export class CredentialsInput {
@@ -83,8 +83,8 @@ export class BusinessInput {
   @field(type => GeoCoordinateInput, {nullable: false})
   location: GeoCoordinateInput;
 
-  @field(type => [ServiceListInput], {nullable: false})
-  services: ServiceListInput[]
+  @field(type => [Services_Input], {nullable: false})
+  services: Services_Input[]
 
   @field({nullable: false, })
   schedule: string;

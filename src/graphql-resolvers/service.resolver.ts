@@ -1,7 +1,7 @@
 import {inject} from '@loopback/core';
-import {arg, GraphQLBindings, mutation, query, resolver, ResolverData} from '@loopback/graphql';
+import {arg, GraphQLBindings, ID, mutation, query, resolver, ResolverData} from '@loopback/graphql';
 import {CatagoryController} from '../controllers';
-import {ServiceList, ServiceListInput} from '../schema';
+import {ServiceList, ServiceListInput, Services, ServicesInput, Success} from '../schema';
 
 @resolver()
 export class ServiceResolver {
@@ -30,6 +30,27 @@ export class ServiceResolver {
     );
   }
 
+  @mutation(returns => Services)
+  async addServiceCatagory(
+    @arg("services", type => ServicesInput) services: ServicesInput,
+    @arg("subCatagoryId", type => ID) subCatagoryId: number,
+  ): Promise<Services> {
+    return this.catagoryController.addServiceCatagory(
+      this.resolverData.context,
+      services,
+      subCatagoryId
+    );
+  }
+
+  @mutation(returns => Success)
+  async removeServiceCatagory(
+    @arg("serviceId", type => ID) serviceId: number,
+  ): Promise<Success> {
+    return this.catagoryController.removeServiceCatagory(
+      this.resolverData.context,
+      serviceId
+    );
+  }
 }
 
 

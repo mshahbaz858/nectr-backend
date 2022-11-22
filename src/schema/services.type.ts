@@ -59,7 +59,7 @@ export class SubServices {
 
 @objectType({description: 'Services object'})
 export class Services {
-  @field(type => ID)
+  @field(type => ID, {nullable: false})
   id: number;
 
   @field({nullable: false})
@@ -72,6 +72,11 @@ export class Services {
 
   @field(type => [SubServices], {nullable: true})
   subServices?: SubServices[];
+
+  @field({nullable: false})
+  @property()
+  isCustomize: boolean;
+
 }
 
 
@@ -100,5 +105,6 @@ export class ServiceList {
   @field(type => [SubCatagories], {nullable: false})
   subCatagories: SubCatagories[];
 }
+
 
 

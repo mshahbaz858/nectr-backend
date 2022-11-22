@@ -1,4 +1,4 @@
-import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property, referencesMany} from '@loopback/repository';
 import {SubService} from './sub-service.model';
 
 @model({settings: {strict: true}})
@@ -35,6 +35,9 @@ export class Service extends Entity {
     default: false,
   })
   isCustomize: boolean;
+
+  @referencesMany(() => Service)
+  serviceIds: number[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
