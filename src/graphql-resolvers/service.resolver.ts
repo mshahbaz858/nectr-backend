@@ -29,6 +29,12 @@ export class ServiceResolver {
       this.resolverData.context,
     );
   }
+  @query(returns => Success)
+  async initializaApp(): Promise<Success> {
+    return this.catagoryController.initializeApp(
+      this.resolverData.context,
+    );
+  }
 
   @mutation(returns => Services)
   async addServiceCatagory(
@@ -51,6 +57,8 @@ export class ServiceResolver {
       serviceId
     );
   }
+
+
 }
 
 

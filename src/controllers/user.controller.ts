@@ -95,7 +95,7 @@ export class UserController {
         const service = services[i];
         businessCatagory.push({businessId: businessId, catagoryId: service.catagoryId})
         if (service.price) {
-          servicesList.push({name: service.name, price: service.price, isCustomize: true, businessId: businessId, serviceId: service.serviceId})
+          servicesList.push({name: service.name, price: service.price, businessId: businessId, serviceId: service.serviceId})
         }
         businessSubCatagory.push({businessId: businessId, subCatagoryId: service.subCatagoryId})
       }
@@ -131,7 +131,7 @@ export class UserController {
       //       }
       //       else {
       //         if (service.price) {
-      //           servicesList.push({name: service.name, price: service.price, isCustomize: true, businessId: businessId, serviceId: service.id})
+      //           servicesList.push({name: service.name, price: service.price,  businessId: businessId, serviceId: service.id})
       //           // const newService = await this.serviceRepo.create({name: service.name, price: service.price, subCatagoryId: newSubCatagory.id}, {transaction})
       //           // serviceList.push({id: newService.id, name: newService.name, price: newService.price})
       //         }

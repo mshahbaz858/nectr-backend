@@ -60,28 +60,6 @@ export class Pagination {
   count: number;
 }
 
-// @objectType({ description: 'Generic success response' })
-// export class ServiceOffering {
-
-//   @field({
-//     nullable: false,
-//     description: 'True if successfully verified',
-//   })
-//   verified: boolean;
-
-//   @field({
-//     nullable: false,
-//     description: 'Current verification state',
-//   })
-//   status: string;
-
-//   @field({
-//     nullable: true,
-//     description: '',
-//   })
-//   message?: string;
-// }
-
 @inputType({description: "Service Offers"})
 export class ServiceOfferingInput {
   @field(type => String, {nullable: false})
@@ -95,9 +73,6 @@ export class ServiceOfferingInput {
 
   @field(type => String, {nullable: false})
   businessId: string
-
-  @field({nullable: false})
-  isCustomize: boolean
 }
 
 @inputType({description: "Business Catagory"})

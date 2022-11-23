@@ -29,12 +29,6 @@ export class ServiceOffering extends Entity {
   @belongsTo(() => Business)
   businessId: string;
 
-  @property({
-    type: 'boolean',
-    required: true,
-    default: true,
-  })
-  isCustomize: boolean;
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;

@@ -45,7 +45,7 @@ import {property} from '@loopback/repository';
 
 @objectType({description: 'Subservices object'})
 export class SubServices {
-  @field(type => ID)
+  @field(type => ID, {nullable: false})
   id: number;
 
   @field({nullable: false})
@@ -55,12 +55,15 @@ export class SubServices {
   @field({nullable: false})
   @property()
   price: number;
+
+  @field({nullable: true})
+  serviceId?: number;
 }
 
 @objectType({description: 'Services object'})
 export class Services {
-  @field(type => ID, {nullable: false})
-  id: number;
+  @field(type => ID, {nullable: true})
+  id?: number;
 
   @field({nullable: false})
   @property()
@@ -70,13 +73,18 @@ export class Services {
   @property()
   price?: number;
 
+  @field({nullable: true})
+  subCatagoryId?: number;
+
+  @field(type => [Number], {nullable: false})
+  serviceIds: number[];
+
   @field(type => [SubServices], {nullable: true})
   subServices?: SubServices[];
 
   @field({nullable: false})
   @property()
   isCustomize: boolean;
-
 }
 
 
@@ -88,6 +96,9 @@ export class SubCatagories {
   @field({nullable: false})
   @property()
   name: string;
+
+  @field(type => ID, {nullable: true})
+  catagoryId?: number;
 
   @field(type => [Services], {nullable: false})
   services: Services[];
